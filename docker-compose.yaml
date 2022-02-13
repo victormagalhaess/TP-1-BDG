@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  bdg-postgres:
+    image: kartoza/postgis:14-3.1
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=gis
+      - POSTGRES_USER=docker
+      - ALLOW_IP_RANGE=0.0.0.0/0
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+    ports:
+      - "15432:5432"
+    volumes:
+      - /mnt/c/Users/Victor/Documents/bdg/TP-1-BDG:/var/lib/postgresql/data
+      - /mnt/c/Users/Victor/Documents/bdg/TP-1-BDG/csv:/csv
+
+    networks:
+      - postgres-compose-network
+
+  teste-pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "hello@victordias.dev"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "5050:80"
+    depends_on:
+      - bdg-postgres
+    networks:
+      - postgres-compose-network
+
+networks:
+  postgres-compose-network:
+    driver: bridge
