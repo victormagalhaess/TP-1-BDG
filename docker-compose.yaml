@@ -18,6 +18,40 @@ services:
     networks:
       - postgres-compose-network
 
+  bdg-postgres2:
+    image: kartoza/postgis:14-3.1
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=gis
+      - POSTGRES_USER=docker
+      - ALLOW_IP_RANGE=0.0.0.0/0
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+    ports:
+      - "15433:5432"
+    volumes:
+      - /mnt/c/Users/Victor/Documents/bdg/TP-1-BDG:/var/lib/postgresql/data
+      - /mnt/c/Users/Victor/Documents/bdg/TP-1-BDG/csv:/csv
+
+    networks:
+      - postgres-compose-network
+
+  bdg-postgres3:
+    image: kartoza/postgis:14-3.1
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=gis
+      - POSTGRES_USER=docker
+      - ALLOW_IP_RANGE=0.0.0.0/0
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+    ports:
+      - "15434:5432"
+    volumes:
+      - /mnt/c/Users/Victor/Documents/bdg/TP-1-BDG:/var/lib/postgresql/data
+      - /mnt/c/Users/Victor/Documents/bdg/TP-1-BDG/csv:/csv
+
+    networks:
+      - postgres-compose-network
+
   teste-pgadmin-compose:
     image: dpage/pgadmin4
     environment:

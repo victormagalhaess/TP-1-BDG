@@ -1,8 +1,8 @@
 create table rodovias(
-	sigla varchar(100),
 	gid integer,
 	shape_len double precision,
-)
+	sigla varchar(100)
+);
 
 
 select addgeometrycolumn('geodata', 'rodovias', 'geom', 4326,
